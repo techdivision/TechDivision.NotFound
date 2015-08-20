@@ -6,7 +6,7 @@ This Package provides a configurable 404 error page for TYPO3 Neos with dimensio
 
 # Installation
 
-you need to add the package to your `composer.json`
+For `Neos 1.2.*` please add the following package to your `composer.json`
 
 ``` bash
 {
@@ -15,6 +15,18 @@ you need to add the package to your `composer.json`
     },
 }
 ```
+
+For `Neos 2.0.*` please use
+
+``` bash
+{
+    "require": {
+        "techdivision/notfound": "2.0.*"
+    },
+}
+```
+
+
 
 Install the package:
 
