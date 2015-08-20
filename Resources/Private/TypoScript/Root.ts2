@@ -1,0 +1,48 @@
+# =================================================================================================
+#
+# NOTICE OF LICENSE
+#
+# This source file is subject to version 3 of the GPL license,
+# that is bundled with this package in the file LICENSE, and is
+# available online at http://www.gnu.org/licenses/gpl.txt
+#
+# @author    Philipp Dittert <pd@techdivision.com>
+# @copyright 2015 TechDivision GmbH <info@techdivision.com>
+# @license   http://www.gnu.org/licenses/gpl.txt GNU General Public License, version 3 (GPL-3.0)
+# @link      https://github.com/techdivision/TechDivision.NotFound
+#
+# =================================================================================================
+
+prototype(TYPO3.Neos:Page) {
+    httpResponseHead {
+        statusCode = 404
+        statusCode.@if.featureIsEnabled = ${Configuration.setting('TechDivision.NotFound.enable') == true}
+        statusCode.@if.nodeIs404Site = ${node.properties.uriPathSegment == Configuration.setting('TechDivision.NotFound.defaultUriSegment')}
+        statusCode.@if.onlyRenderWhenNotInLiveWorkspace = ${node.context.workspace.name == 'live'}
+    }
+
+    head {
+        canonicalLink {
+            @if.checkIfTechDivisionNotFoundPackageIsDisabledOrPackageIsEnabledAndCurrentNodeDiffersFromConfigured404DefaultNode = ${Configuration.setting('TechDivision.NotFound.enable') == false || Configuration.setting('TechDivision.NotFound.enable') == true && node.properties.uriPathSegment != Configuration.setting('TechDivision.NotFound.defaultUriSegment')}
+        }
+
+        alternateLanguageLinks {
+            @if.checkIfTechDivisionNotFoundPackageIsDisabledOrPackageIsEnabledAndCurrentNodeDiffersFromConfigured404DefaultNode = ${Configuration.setting('TechDivision.NotFound.enable') == false || Configuration.setting('TechDivision.NotFound.enable') == true && node.properties.uriPathSegment != Configuration.setting('TechDivision.NotFound.defaultUriSegment')}
+        }
+
+        metaRobotsTag {
+            @if.checkIfTechDivisionNotFoundPackageIsDisabledOrPackageIsEnabledAndCurrentNodeDiffersFromConfigured404DefaultNode = ${Configuration.setting('TechDivision.NotFound.enable') == false || Configuration.setting('TechDivision.NotFound.enable') == true && node.properties.uriPathSegment != Configuration.setting('TechDivision.NotFound.defaultUriSegment')}
+        }
+
+        noIndexNoFollowMetaRobotsTag = TYPO3.TypoScript:Tag {
+            tagName = 'meta'
+            attributes {
+                name = 'robots'
+                content = "noindex,nofollow"
+            }
+            @if.featureIsEnabled = ${Configuration.setting('TechDivision.NotFound.enable') == true}
+            @if.nodeIs404Site = ${node.properties.uriPathSegment == Configuration.setting('TechDivision.NotFound.defaultUriSegment')}
+        }
+
+    }
+}

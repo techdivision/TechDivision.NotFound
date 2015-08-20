@@ -1,0 +1,67 @@
+<?xml version="1.0"?>
+<project name="TechDivision.NotFound" default="run-all-tests">
+    <property environment="env" />
+    <property name="basedir" value="." />
+    <property name="php-src.dir" value="${basedir}/Classes"/>
+    <property name="php-target.dir" value="${basedir}/target"/>
+    <property name="codepool" value="vendor"/>
+    <property name="vendor.dir" value="${basedir}/${codepool}" />
+    <property name="phpmd.file" value="${basedir}/phpmd.xml" />
+
+    <target name="phplint">
+        <apply executable="php" failonerror="true">
+            <arg value="-l" />
+            <fileset dir="${php-src.dir}">
+                <include name="**/*.php" />
+                <exclude name="vendor/**" />
+            </fileset>
+        </apply>
+    </target>
+
+    <target name="prepare">
+        <mkdir dir="${php-target.dir}/reports" />
+    </target>
+
+    <target name="phpcs">
+        <exec executable="${vendor.dir}/bin/phpcs" dir="${basedir}" passthru="true"  checkreturn="true">
+            <arg line="-n --extensions=php --standard=phpcs.xml ${php-src.dir}"/>
+        </exec>
+    </target>
+
+    <target name="phpcpd">
+        <exec executable="${vendor.dir}/bin/phpcpd" dir="${basedir}" passthru="true"  checkreturn="true">
+            <arg line="--log-pmd ${php-target.dir}/reports/pmd-cpd.xml --exclude vendor ${php-src.dir}"/>
+        </exec>
+    </target>
+
+    <target name="phploc">
+        <exec executable="${vendor.dir}/bin/phploc" dir="${basedir}" passthru="true"  checkreturn="true">
+            <arg line="--log-xml ${php-target.dir}/reports/phploc.xml ${php-src.dir}"/>
+        </exec>
+    </target>
+
+    <target name="phplint">
+        <apply executable="php" failonerror="true">
+            <arg value="-l" />
+            <fileset dir="${php-src.dir}">
+                <include name="**/*.php" />
+                <exclude name="vendor/**" />
+            </fileset>
+        </apply>
+    </target>
+
+    <target name="phpmd">
+        <exec executable="${vendor.dir}/bin/phpmd" dir="${basedir}" passthru="true">
+            <arg line="${php-src.dir} xml ${phpmd.file} --reportfile ${php-target.dir}/reports/pmd.xml" />
+        </exec>
+    </target>
+
+    <target name="run-all-tests" description="runs all tests">
+        <phingcall target="prepare" />
+        <phingcall target="phpcs" />
+        <phingcall target="phpcpd" />
+        <phingcall target="phplint" />
+        <phingcall target="phpmd" />
+        <phingcall target="phploc" />
+    </target>
+</project>

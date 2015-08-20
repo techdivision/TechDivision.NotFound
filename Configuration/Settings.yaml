@@ -1,0 +1,18 @@
+
+## autoinclude the TypoScript snippet
+
+TYPO3:
+ Neos:
+   typoScript:
+     autoInclude:
+       'TechDivision.NotFound': TRUE
+
+
+###
+# put the following settings in your Site or Projects Settings.yaml!
+###
+
+#TechDivision:
+#  NotFound:
+#    enable: true
+#    defaultUriSegment: '404'

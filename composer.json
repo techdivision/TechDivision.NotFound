@@ -1,0 +1,35 @@
+{
+  "name": "techdivision/notfound",
+  "type": "typo3-flow-package",
+  "license": "GPL-3.0+",
+  "description": "Provides a configurable 404 error for Neos CMS. This Package comes with content dimensions support!",
+  "homepage" : "https://github.com/techdivision/TechDivision.NotFound",
+  "authors" : [{
+    "name" : "Philipp Dittert",
+    "email" : "pd@techdivision.com",
+    "homepage" : "https://www.techdivision.com"
+  }],
+  "require": {
+    "typo3/neos": ">=1.2"
+  },
+  "require-dev" : {
+    "phing/phing": "*",
+    "mikey179/vfsStream" : "*",
+    "php" : ">=5.4.0",
+    "phpmd/phpmd" : "2.1.*",
+    "phploc/phploc" : "2.0.*",
+    "pdepend/pdepend" : "2.0.*",
+    "sebastian/phpcpd" : "2.0.*",
+    "squizlabs/php_codesniffer": "2.*"
+  },
+  "autoload": {
+    "psr-0": {
+      "TechDivision\\NotFound": "Classes"
+    }
+  },
+  "support" : {
+    "issues" : "https://github.com/techdivision/TechDivision.NotFound/issues",
+    "source" : "https://github.com/techdivision/TechDivision.NotFound"
+  }
+}
+
