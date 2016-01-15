@@ -20,6 +20,7 @@ use TYPO3\Neos\Routing\Exception\NoSuchDimensionValueException;
 use TYPO3\TYPO3CR\Domain\Model\NodeInterface;
 use TYPO3\Neos\Routing\Exception\NoSuchNodeException;
 use TYPO3\Neos\Routing\Exception;
+use TYPO3\Neos\Domain\Service\ContentDimensionPresetSourceInterface;
 use TechDivision\NotFound\Domain\Service\NodeNotFoundService;
 
 /**
@@ -35,6 +36,12 @@ class FrontendNodeRoutePartHandlerAspect
      * @var NodeNotFoundService
      */
     protected $nodeNotFoundService;
+
+    /**
+     * @Flow\Inject
+     * @var ContentDimensionPresetSourceInterface
+     */
+    protected $contentDimensionPresetSource;
 
     /**
      * @Flow\Around("method(TYPO3\Neos\Routing\FrontendNodeRoutePartHandler->convertRequestPathToNode())")
@@ -66,7 +73,12 @@ class FrontendNodeRoutePartHandlerAspect
 
             } catch (NoSuchNodeException $e) {
                 $dimensionUriSegment = strstr($requestPath, "/", true);
-                $requestPath = $dimensionUriSegment . "/" . $this->nodeNotFoundService->get404NodeUriForDimensionUriSegment($dimensionUriSegment);
+
+                if (count($this->contentDimensionPresetSource->getAllPresets()) > 0) {
+                    $requestPath = $dimensionUriSegment . "/" . $this->nodeNotFoundService->get404NodeUriForDimensionUriSegment($dimensionUriSegment);
+                } else {
+                    $requestPath = $this->nodeNotFoundService->get404NodeUriForDimensionUriSegment('');
+                }
 
                 $joinPoint->setMethodArgument("requestPath", $requestPath);
                 return $joinPoint->getAdviceChain()->proceed($joinPoint);
