@@ -14,8 +14,8 @@ namespace TechDivision\NotFound\Domain\Service;
  * @link      https://github.com/techdivision/TechDivision.NotFound
  */
 
-use TYPO3\Flow\Annotations as Flow;
-use TYPO3\Neos\Domain\Service\ContentDimensionPresetSourceInterface;
+use Neos\Flow\Annotations as Flow;
+use Neos\Neos\Domain\Service\ContentDimensionPresetSourceInterface;
 
 /**
 * Provides methods to serve the correct 404 site for every dimension

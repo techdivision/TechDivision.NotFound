@@ -13,7 +13,7 @@
 #
 # =================================================================================================
 
-prototype(TYPO3.Neos:Page) {
+prototype(Neos.Neos:Page) {
     httpResponseHead {
         statusCode = 404
         statusCode.@if.featureIsEnabled = ${Configuration.setting('TechDivision.NotFound.enable') == true}
@@ -34,7 +34,7 @@ prototype(TYPO3.Neos:Page) {
             @if.checkIfTechDivisionNotFoundPackageIsDisabledOrPackageIsEnabledAndCurrentNodeDiffersFromConfigured404DefaultNode = ${Configuration.setting('TechDivision.NotFound.enable') == false || Configuration.setting('TechDivision.NotFound.enable') == true && node.properties.uriPathSegment != Configuration.setting('TechDivision.NotFound.defaultUriSegment')}
         }
 
-        noIndexNoFollowMetaRobotsTag = TYPO3.TypoScript:Tag {
+        noIndexNoFollowMetaRobotsTag = Neos.Fusion:Tag {
             tagName = 'meta'
             attributes {
                 name = 'robots'
