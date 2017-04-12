@@ -14,10 +14,10 @@ namespace TechDivision\NotFound\Routing;
  * @link      https://github.com/techdivision/TechDivision.NotFound
  */
 
-use TYPO3\Flow\Annotations as Flow;
-use TYPO3\Neos\Routing\FrontendNodeRoutePartHandler;
+use Neos\Flow\Annotations as Flow;
+use Neos\Neos\Routing\FrontendNodeRoutePartHandler;
 use TechDivision\NotFound\Domain\Service\NodeNotFoundService;
-use TYPO3\Neos\Routing\Exception;
+use Neos\Neos\Routing\Exception;
 
 /**
  * A route part handler for delivering the dimension's 404 site
